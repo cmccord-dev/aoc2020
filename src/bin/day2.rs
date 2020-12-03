@@ -1,6 +1,7 @@
 use aoc20::{parse_list, ParsingError};
 use std::str::FromStr;
 
+const DAY: u32 = 2;
 #[derive(Debug)]
 struct Input {
     min: usize,
@@ -44,11 +45,12 @@ fn part2(input: &Vec<Input>) -> usize {
     input.iter().filter(|x| x.validate2()).count()
 }
 
+
 fn read_input() -> Result<Vec<Input>, <Input as FromStr>::Err> {
-    parse_list("input/day2.in")
+    parse_list(&format!("input/day{}.in", DAY))
 }
 fn main() {
-    println!("Day 2:");
+    println!("Day {}:", DAY);
     let input = read_input().unwrap();
     println!("Part1: {}", part1(&input));
     println!("Part2: {}", part2(&input));
@@ -58,7 +60,7 @@ fn main() {
 mod test {
     use super::*;
     #[test]
-    fn day2() {
+    fn test() {
         let input = read_input().unwrap();
         assert_eq!(part1(&input), 424);
         assert_eq!(part2(&input), 747);

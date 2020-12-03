@@ -1,6 +1,7 @@
 use std::{convert::Infallible, str::FromStr};
 
 use aoc20::parse_list;
+const DAY: u32 = 3;
 
 struct Input(Vec<bool>);
 impl FromStr for Input {
@@ -30,11 +31,12 @@ fn part2(input: &Vec<Input>) -> u64 {
         .product()
 }
 
+
 fn read_input() -> Result<Vec<Input>, <Input as FromStr>::Err> {
-    parse_list("input/day3.in")
+    parse_list(&format!("input/day{}.in", DAY))
 }
 fn main() {
-    println!("Day 3:");
+    println!("Day {}:", DAY);
     let input = read_input().unwrap();
     println!("Part1: {}", part1(&input));
     println!("Part2: {}", part2(&input));
@@ -44,7 +46,7 @@ fn main() {
 mod test {
     use super::*;
     #[test]
-    fn day3() {
+    fn test() {
         let input = read_input().unwrap();
         assert_eq!(part1(&input), 211);
         assert_eq!(part2(&input), 3584591857);
