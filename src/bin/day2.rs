@@ -58,7 +58,7 @@ fn main() {
 mod test {
     use super::*;
     #[test]
-    fn day1() {
+    fn day2() {
         let input = read_input().unwrap();
         assert_eq!(part1(&input), 424);
         assert_eq!(part2(&input), 747);

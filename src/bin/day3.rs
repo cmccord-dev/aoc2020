@@ -2,10 +2,6 @@ use std::{convert::Infallible, str::FromStr};
 
 use aoc20::parse_list;
 
-/*#[derive(Debug)]
-struct Input {
-    data: Vec<bool>
-}*/
 struct Input(Vec<bool>);
 impl FromStr for Input {
     type Err = Infallible;
@@ -28,7 +24,7 @@ fn part1(input: &Vec<Input>) -> u64 {
 }
 
 fn part2(input: &Vec<Input>) -> u64 {
-    vec![(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
+    [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
         .iter()
         .map(|x| slope(input, x.1, x.0))
         .product()
@@ -48,7 +44,7 @@ fn main() {
 mod test {
     use super::*;
     #[test]
-    fn day1() {
+    fn day3() {
         let input = read_input().unwrap();
         assert_eq!(part1(&input), 211);
         assert_eq!(part2(&input), 3584591857);
