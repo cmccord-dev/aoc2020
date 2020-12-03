@@ -1,41 +1,27 @@
+use itertools::Itertools;
 use std::str::FromStr;
 
 use aoc20::parse_list;
 
 type Input = u64;
 
-fn part1(input: &Vec<Input>) -> u64 {
-    let mut val = 0;
+fn find_sum_to(input: &Vec<Input>, num_vals: usize) -> u64 {
     input
+        .into_iter()
+        .combinations(num_vals)
+        .find(|x| x.iter().map(|&x| *x).sum::<u64>() == 2020u64)
+        .unwrap()
         .iter()
-        .find(|&x| match input.iter().find(|&y| x + y == 2020) {
-            None => false,
-            Some(y) => {
-                //println!("Part 1: {}*{} = {}", x, y, x * y);
-                val = x * y;
-                true
-            }
-        });
-    val
+        .map(|&x| x)
+        .product::<u64>()
+}
+
+fn part1(input: &Vec<Input>) -> u64 {
+    find_sum_to(input, 2)
 }
 
 fn part2(input: &Vec<Input>) -> u64 {
-    let mut val = 0;
-    input.iter().find(|&x| {
-        input
-            .iter()
-            .find(|&y| match input.iter().find(|&z| x + y + z == 2020) {
-                None => false,
-                Some(z) => {
-                    //println!("Part 2: {}*{}*{} = {}", x, y, z, x * y * z);
-                    val = x * y * z;
-                    true
-                }
-            })
-            .map(|_| true)
-            .unwrap_or(false)
-    });
-    val
+    find_sum_to(input, 3)
 }
 
 fn read_input() -> Result<Vec<Input>, <Input as FromStr>::Err> {
