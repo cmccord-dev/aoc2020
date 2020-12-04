@@ -1,7 +1,7 @@
 use itertools::Itertools;
 use std::{collections::HashSet, str::FromStr};
 
-use aoc20::{parse_list_delim, ParsingError};
+use aoc20::{CountValid, ParsingError, Validate, parse_list_delim};
 
 const DAY: u32 = 4;
 
@@ -49,9 +49,22 @@ impl FromStr for PassportItem {
         })
     }
 }
+struct Input(Vec<PassportItem>);
 
-impl PassportItem {
-    pub fn validate(&self) -> bool {
+impl FromStr for Input {
+    type Err = ParsingError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        Ok(Input(
+            s.split_ascii_whitespace()
+                .map(|x| x.parse::<PassportItem>())
+                .try_collect()?,
+        ))
+    }
+}
+
+impl Validate for PassportItem {
+    fn validate2(&self) -> bool {
         match self.key {
             PassportField::BirthYear => match self.value.parse() {
                 Ok(1920..=2002) => true,
@@ -103,62 +116,27 @@ impl PassportItem {
         }
     }
 }
-struct Input(Vec<PassportItem>);
 
-impl FromStr for Input {
-    type Err = ParsingError;
+impl Validate for Input {
+    fn validate1(&self) -> bool {
+        let s: HashSet<PassportField> = (self.0.iter().map(|p| p.key)).collect();
+        match s.len() {
+            8 => true,
+            7 => !s.contains(&PassportField::CountryId),
+            _ => false,
+        }
+    }
 
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        Ok(Input(
-            s.split_ascii_whitespace()
-                .map(|x| x.parse::<PassportItem>())
-                .try_collect()?,
-        ))
+    fn validate2(&self) -> bool {
+        self.validate1() && self.0.iter().all(|v| v.validate2())
     }
 }
-
-fn part1(input: &Vec<Input>) -> u64 {
-    input
-        .iter()
-        .map(|x| {
-            let s: HashSet<PassportField> = (x.0.iter().map(|p| p.key)).collect();
-            match s.len() {
-                8 => 1u64,
-                7 => {
-                    if !s.contains(&PassportField::CountryId) {
-                        1
-                    } else {
-                        0
-                    }
-                }
-                _ => 0,
-            }
-        })
-        .sum()
+fn part1(input: &Vec<Input>) -> usize {
+    input.count_valid1()
 }
 
-fn part2(input: &Vec<Input>) -> u64 {
-    input
-        .iter()
-        .map(|x| {
-            if x.0.iter().all(|v| v.validate()) {
-                let s: HashSet<PassportField> = (x.0.iter().map(|p| p.key)).collect();
-                match s.len() {
-                    8 => 1,
-                    7 => {
-                        if !s.contains(&PassportField::CountryId) {
-                            1
-                        } else {
-                            0
-                        }
-                    }
-                    _ => 0,
-                }
-            } else {
-                0
-            }
-        })
-        .sum()
+fn part2(input: &Vec<Input>) -> usize {
+    input.count_valid2()
 }
 
 fn read_input() -> Result<Vec<Input>, <Input as FromStr>::Err> {

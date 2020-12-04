@@ -5,6 +5,32 @@ use std::str::FromStr;
 
 use itertools::Itertools;
 
+pub trait Validate {
+    fn validate1(&self) -> bool {
+        true
+    }
+    fn validate2(&self) -> bool {
+        true
+    }
+}
+
+pub trait CountValid {
+    fn count_valid1(&self) -> usize;
+    fn count_valid2(&self) -> usize;
+}
+impl<T> CountValid for Vec<T>
+where
+    T: Validate,
+{
+    fn count_valid1(&self) -> usize {
+        self.iter().filter(|x| x.validate1()).count()
+    }
+
+    fn count_valid2(&self) -> usize {
+        self.iter().filter(|x| x.validate2()).count()
+    }
+}
+
 #[derive(Debug)]
 pub enum ParsingError {
     IntError(ParseIntError),

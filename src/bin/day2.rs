@@ -1,3 +1,4 @@
+use aoc20::{CountValid, Validate};
 use aoc20::{parse_list, ParsingError};
 use std::str::FromStr;
 
@@ -10,12 +11,12 @@ struct Input {
     val: String,
 }
 
-impl Input {
-    pub fn validate1(&self) -> bool {
+impl Validate for Input {
+    fn validate1(&self) -> bool {
         let count = self.val.matches(self.character).count();
         self.min <= count && count <= self.max
     }
-    pub fn validate2(&self) -> bool {
+    fn validate2(&self) -> bool {
         let a = self.val.chars().nth(self.min - 1).unwrap() == self.character;
         let b = self.val.chars().nth(self.max - 1).unwrap() == self.character;
         a ^ b
@@ -38,11 +39,11 @@ impl FromStr for Input {
 }
 
 fn part1(input: &Vec<Input>) -> usize {
-    input.iter().filter(|x| x.validate1()).count()
+    input.count_valid1()
 }
 
 fn part2(input: &Vec<Input>) -> usize {
-    input.iter().filter(|x| x.validate2()).count()
+    input.count_valid2()
 }
 
 
