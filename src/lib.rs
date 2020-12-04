@@ -5,6 +5,9 @@ use std::str::FromStr;
 
 use itertools::Itertools;
 
+pub mod days;
+use days::*;
+
 pub trait Validate {
     fn validate1(&self) -> bool {
         true
@@ -29,6 +32,10 @@ where
     fn count_valid2(&self) -> usize {
         self.iter().filter(|x| x.validate2()).count()
     }
+}
+
+pub fn regex_match(regex: &str, value: &str) -> bool {
+    regex::Regex::new(regex).unwrap().is_match(value)
 }
 
 #[derive(Debug)]
@@ -68,3 +75,4 @@ pub fn parse_list_delim<T: FromStr>(filename: &str, delim: &str) -> Result<Vec<T
     let file = std::fs::read_to_string(filename).unwrap();
     file.split(delim).map(|x| x.parse::<T>()).try_collect()
 }
+

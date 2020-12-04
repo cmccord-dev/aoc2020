@@ -1,7 +1,7 @@
 use itertools::Itertools;
 use std::{collections::HashSet, str::FromStr};
 
-use aoc20::{CountValid, ParsingError, Validate, parse_list_delim};
+use aoc20::{CountValid, ParsingError, Validate, parse_list_delim, regex_match};
 
 const DAY: u32 = 4;
 
@@ -106,6 +106,7 @@ impl Validate for PassportItem {
                 _ => false,
             },
             PassportField::PassportId => {
+                //regex_match(r"^\d{9}$", &self.value)
                 if self.value.len() != 9 {
                     false
                 } else {
