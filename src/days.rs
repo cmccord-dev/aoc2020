@@ -32,18 +32,18 @@ where
         let p1 = self.part1(&input);
         let b2 = Instant::now();
         println!(
-            "Part1: {}\nTook {}s",
+            "Part1: {}\nTook {}ms",
             p1,
-            (b2 - b1).as_millis() as f64 / 1000.0
+            (b2 - b1).as_nanos() as f64 / 1000000.0
         );
 
         let b1 = Instant::now();
         let p1 = self.part2(&input);
         let b2 = Instant::now();
         println!(
-            "Part2: {}\nTook {}s\n",
+            "Part2: {}\nTook {}ms\n",
             p1,
-            (b2 - b1).as_millis() as f64 / 1000.0
+            (b2 - b1).as_nanos() as f64 / 1000000.0
         );
     }
 }

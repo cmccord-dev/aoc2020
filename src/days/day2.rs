@@ -1,8 +1,7 @@
 use crate::Day;
-use crate::{parse_list, ParsingError};
+use crate::ParsingError;
 use crate::{CountValid, Validate};
 use std::str::FromStr;
-
 
 #[derive(Debug)]
 pub struct Input {

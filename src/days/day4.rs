@@ -2,7 +2,7 @@ use crate::Day;
 use itertools::Itertools;
 use std::{collections::HashSet, str::FromStr};
 
-use crate::{CountValid, ParsingError, Validate, parse_list_delim, regex_match};
+use crate::{parse_list_delim, CountValid, ParsingError, Validate};
 
 #[derive(Debug, Hash, Eq, PartialEq, Copy, Clone)]
 pub enum PassportField {
@@ -134,8 +134,7 @@ impl Validate for Input {
     }
 }
 
-
-pub struct Day4{}
+pub struct Day4 {}
 impl Day<Input, usize> for Day4 {
     fn get_num(&self) -> usize {
         4
@@ -152,12 +151,12 @@ impl Day<Input, usize> for Day4 {
     fn part1(&self, input: &Vec<Input>) -> usize {
         input.count_valid1()
     }
-    
+
     fn part2(&self, input: &Vec<Input>) -> usize {
         input.count_valid2()
     }
-    
-    fn read_input(&self, ) -> Result<Vec<Input>, <Input as FromStr>::Err> {
+
+    fn read_input(&self) -> Result<Vec<Input>, <Input as FromStr>::Err> {
         parse_list_delim::<Input>(&format!("input/day{}.in", self.get_num()), "\n\n")
     }
 }
