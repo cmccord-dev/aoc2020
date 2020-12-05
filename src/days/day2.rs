@@ -1,15 +1,16 @@
-use crate::Day;
+use crate::DayTrait;
 use crate::ParsingError;
 use crate::{CountValid, Validate};
 use std::str::FromStr;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Input {
     min: usize,
     max: usize,
     character: char,
     val: String,
 }
+type Output = usize;
 
 impl Validate for Input {
     fn validate1(&self) -> bool {
@@ -38,25 +39,26 @@ impl FromStr for Input {
     }
 }
 
-pub struct Day2 {}
-impl Day<Input, usize> for Day2 {
+#[derive(Default)]
+pub struct Day {}
+impl DayTrait<Input, Output> for Day {
     fn get_num(&self) -> usize {
         2
     }
 
-    fn part1(&self, input: &Vec<Input>) -> usize {
+    fn part1(&self, input: Vec<Input>) -> Output {
         input.count_valid1()
     }
 
-    fn part2(&self, input: &Vec<Input>) -> usize {
+    fn part2(&self, input: Vec<Input>) -> Output {
         input.count_valid2()
     }
 
-    fn part1_answer(&self) -> usize {
+    fn part1_answer(&self) -> Output {
         424
     }
 
-    fn part2_answer(&self) -> usize {
+    fn part2_answer(&self) -> Output {
         747
     }
 }

@@ -10,10 +10,30 @@ pub mod day2;
 pub mod day3;
 pub mod day4;
 pub mod day5;
+pub mod day6;
+pub mod day7;
+pub mod day8;
+pub mod day9;
+pub mod day10;
+pub mod day11;
+pub mod day12;
+pub mod day13;
+pub mod day14;
+pub mod day15;
+pub mod day16;
+pub mod day17;
+pub mod day18;
+pub mod day19;
+pub mod day20;
+pub mod day21;
+pub mod day22;
+pub mod day23;
+pub mod day24;
+pub mod day25;
 
-pub trait Day<Input, Output>
+pub trait DayTrait<Input, Output>: Default
 where
-    Input: FromStr + Debug,
+    Input: FromStr + Debug + Clone,
     <Input as FromStr>::Err: Debug,
     Output: Eq + Display + Debug,
 {
@@ -21,8 +41,8 @@ where
     fn get_num(&self) -> usize;
     fn part1_answer(&self) -> Output;
     fn part2_answer(&self) -> Output;
-    fn part1(&self, input: &Vec<Input>) -> Output;
-    fn part2(&self, input: &Vec<Input>) -> Output;
+    fn part1(&self, input: Vec<Input>) -> Output;
+    fn part2(&self, input: Vec<Input>) -> Output;
     fn read_input(&self) -> Result<Vec<Input>, <Input as FromStr>::Err> {
         parse_list(&format!("input/day{}.in", self.get_num()))
     }
@@ -30,7 +50,7 @@ where
         println!("Day {}:", self.get_num());
         let input = self.read_input().unwrap();
         let b1 = Instant::now();
-        let p1 = self.part1(&input);
+        let p1 = self.part1(input.clone());
         let b2 = Instant::now();
         println!(
             "Part1: {}\nTook {}ms",
@@ -39,7 +59,7 @@ where
         );
 
         let b1 = Instant::now();
-        let p1 = self.part2(&input);
+        let p1 = self.part2(input);
         let b2 = Instant::now();
         println!(
             "Part2: {}\nTook {}ms\n",
@@ -47,43 +67,78 @@ where
             (b2 - b1).as_nanos() as f64 / 1000000.0
         );
     }
+    fn test(&self) {
+        let input = self.read_input().unwrap();
+        assert_eq!(self.part1(input.clone()), self.part1_answer());
+        assert_eq!(self.part2(input), self.part2_answer());
+    }
+    fn new() -> Self {
+        Self::default()
+    }
 }
 
 #[cfg(test)]
 mod test {
-
     use super::*;
-
-    fn test_day<Input, Output>(day: &dyn Day<Input, Output>)
-    where
-        Input: FromStr + Debug,
-        <Input as FromStr>::Err: Debug,
-        Output: Eq + Display + Debug,
-    {
-        let input = day.read_input().unwrap();
-        assert_eq!(day.part1(&input), day.part1_answer());
-        assert_eq!(day.part2(&input), day.part2_answer());
-    }
-
 
     #[test]
     fn day1() {
-        test_day(&day1::Day1 {})
+        day1::Day::new().test()
     }
     #[test]
     fn day2() {
-        test_day(&day2::Day2 {})
+        day2::Day::new().test()
     }
     #[test]
     fn day3() {
-        test_day(&day3::Day3 {})
+        day3::Day::new().test()
     }
     #[test]
     fn day4() {
-        test_day(&day4::Day4 {})
+        day4::Day::new().test()
     }
     #[test]
     fn day5() {
-        test_day(&day5::Day5 {})
+        day5::Day::new().test()
     }
+    #[test]
+fn day6() { day6::Day::new().test() }
+#[test]
+fn day7() { day7::Day::new().test() }
+#[test]
+fn day8() { day8::Day::new().test() }
+#[test]
+fn day9() { day9::Day::new().test() }
+#[test]
+fn day10() { day10::Day::new().test() }
+#[test]
+fn day11() { day11::Day::new().test() }
+#[test]
+fn day12() { day12::Day::new().test() }
+#[test]
+fn day13() { day13::Day::new().test() }
+#[test]
+fn day14() { day14::Day::new().test() }
+#[test]
+fn day15() { day15::Day::new().test() }
+#[test]
+fn day16() { day16::Day::new().test() }
+#[test]
+fn day17() { day17::Day::new().test() }
+#[test]
+fn day18() { day18::Day::new().test() }
+#[test]
+fn day19() { day19::Day::new().test() }
+#[test]
+fn day20() { day20::Day::new().test() }
+#[test]
+fn day21() { day21::Day::new().test() }
+#[test]
+fn day22() { day22::Day::new().test() }
+#[test]
+fn day23() { day23::Day::new().test() }
+#[test]
+fn day24() { day24::Day::new().test() }
+#[test]
+fn day25() { day25::Day::new().test() }
 }

@@ -1,9 +1,9 @@
 use std::{convert::Infallible, str::FromStr};
 
-use crate::Day;
+use crate::DayTrait;
+type Output = u64;
 
-
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Input(Vec<bool>);
 impl FromStr for Input {
     type Err = Infallible;
@@ -21,28 +21,29 @@ fn slope(input: &Vec<Input>, down: usize, right: usize) -> u64 {
         .sum()
 }
 
-pub struct Day3{}
-impl Day<Input, u64> for Day3{
+#[derive(Default)]
+pub struct Day{}
+impl DayTrait<Input, Output> for Day{
     fn get_num(&self) -> usize {
         3
     }
 
-    fn part1_answer(&self) -> u64 {
+    fn part1_answer(&self) -> Output {
         211
     }
 
-    fn part2_answer(&self) -> u64 {
+    fn part2_answer(&self) -> Output {
         3584591857
     }
 
-    fn part1(&self, input: &Vec<Input>) -> u64 {
-        slope(input, 1, 3)
+    fn part1(&self, input: Vec<Input>) -> Output {
+        slope(&input, 1, 3)
     }
 
-    fn part2(&self, input: &Vec<Input>) -> u64 {
+    fn part2(&self, input: Vec<Input>) -> Output {
         [(1, 1), (3, 1), (5, 1), (7, 1), (1, 2)]
             .iter()
-            .map(|x| slope(input, x.1, x.0))
+            .map(|x| slope(&input, x.1, x.0))
             .product()
     }
 }

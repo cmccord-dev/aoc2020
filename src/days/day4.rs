@@ -1,9 +1,11 @@
-use crate::Day;
+use crate::DayTrait;
 use itertools::Itertools;
 use std::collections::HashMap;
 use std::{collections::HashSet, str::FromStr};
 
 use crate::{parse_list_delim, CountValid, ParsingError, Validate};
+
+type Output = usize;
 
 #[derive(Debug, Hash, Eq, PartialEq, Copy, Clone)]
 pub enum PassportField {
@@ -33,7 +35,7 @@ impl FromStr for PassportField {
         })
     }
 }
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Input(HashMap<PassportField, String>);
 
 impl FromStr for Input {
@@ -120,25 +122,26 @@ impl Validate for Input {
     }
 }
 
-pub struct Day4 {}
-impl Day<Input, usize> for Day4 {
+#[derive(Default)]
+pub struct Day {}
+impl DayTrait<Input, Output> for Day {
     fn get_num(&self) -> usize {
         4
     }
 
-    fn part1_answer(&self) -> usize {
+    fn part1_answer(&self) -> Output {
         264
     }
 
-    fn part2_answer(&self) -> usize {
+    fn part2_answer(&self) -> Output {
         224
     }
 
-    fn part1(&self, input: &Vec<Input>) -> usize {
+    fn part1(&self, input: Vec<Input>) -> Output {
         input.count_valid1()
     }
 
-    fn part2(&self, input: &Vec<Input>) -> usize {
+    fn part2(&self, input: Vec<Input>) -> Output {
         input.count_valid2()
     }
 
