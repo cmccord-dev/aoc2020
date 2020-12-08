@@ -2,5 +2,5 @@ use aoc20::days::*;
 
 
 fn main() {
-    day6::Day{}.run_day();
+    day8::Day{}.run_day();
 }
