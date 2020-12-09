@@ -1,15 +1,16 @@
-use crate::parse_list_delim;
+use crate::{input_struct, parse_list_delim};
+use itertools::Itertools;
 use std::collections::hash_set::Union;
 use std::collections::HashSet;
 use std::convert::Infallible;
 use std::iter::FromIterator;
-use itertools::Itertools;
 use std::str::FromStr;
 
 use crate::DayTrait;
-#[derive(Debug, Clone)]
-pub struct Input(Vec<Vec<char>>);
+
+input_struct!(Input, Vec<Vec<char>>);
 type Output = usize;
+
 
 impl FromStr for Input {
     type Err = Infallible;
@@ -18,6 +19,7 @@ impl FromStr for Input {
         Ok(Input(input.lines().map(|x| x.chars().collect()).collect()))
     }
 }
+
 
 #[derive(Default)]
 pub struct Day {}
@@ -31,21 +33,24 @@ impl DayTrait<Input, Output> for Day {
     fn part1(&self, input: Vec<Input>) -> Output {
         input
             .into_iter()
-            .map(|x| {
-                x.0.into_iter().flatten().unique().count()
-            })
+            .map(|x| x.0.into_iter().flatten().unique().count())
             .sum()
     }
 
     fn part2(&self, input: Vec<Input>) -> Output {
-        input.into_iter().map(|x| {
-            let mut iter =
-                x.0.into_iter()
+        input
+            .into_iter()
+            .map(|x| {
+                let mut iter = x.0
+                    .into_iter()
                     .map(|y| y.into_iter().collect::<HashSet<char>>());
 
-            iter.next()
-                .map(|x| iter.fold(x, |a, b| a.intersection(&b).map(|x| *x).collect())).unwrap().len()
-        }).sum()
+                iter.next()
+                    .map(|y| iter.fold(y, |a, b| a.intersection(&b).map(|x| *x).collect()))
+                    .unwrap()
+                    .len()
+            })
+            .sum()
     }
 
     fn part1_answer(&self) -> Output {

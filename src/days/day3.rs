@@ -1,10 +1,13 @@
+use std::ops::Deref;
 use std::{convert::Infallible, str::FromStr};
 
-use crate::DayTrait;
+
+use crate::{DayTrait, input_struct};
 type Output = u64;
 
-#[derive(Debug, Clone)]
-pub struct Input(Vec<bool>);
+
+input_struct!(Input, Vec<bool>);
+
 impl FromStr for Input {
     type Err = Infallible;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -12,12 +15,13 @@ impl FromStr for Input {
     }
 }
 
+
 fn slope(input: &Vec<Input>, down: usize, right: usize) -> u64 {
     input
         .iter()
         .step_by(down)
         .enumerate()
-        .map(|(i, t)| if !t.0[(right * i) % t.0.len()] { 1 } else { 0 })
+        .map(|(i, t)| if !t[(right * i) % t.len()] { 1 } else { 0 })
         .sum()
 }
 

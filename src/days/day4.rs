@@ -1,6 +1,6 @@
-use crate::DayTrait;
+use crate::{DayTrait, input_struct};
 use itertools::Itertools;
-use std::collections::HashMap;
+use std::{ops::Deref, collections::HashMap};
 use std::{collections::HashSet, str::FromStr};
 
 use crate::{parse_list_delim, CountValid, ParsingError, Validate};
@@ -35,8 +35,7 @@ impl FromStr for PassportField {
         })
     }
 }
-#[derive(Debug, Clone)]
-pub struct Input(HashMap<PassportField, String>);
+input_struct!(Input, HashMap<PassportField, String>);
 
 impl FromStr for Input {
     type Err = ParsingError;
@@ -110,15 +109,15 @@ impl Validate for (&PassportField, &String) {
 
 impl Validate for Input {
     fn validate1(&self) -> bool {
-        match self.0.len() {
+        match self.len() {
             8 => true,
-            7 => !self.0.contains_key(&PassportField::CountryId),
+            7 => !self.contains_key(&PassportField::CountryId),
             _ => false,
         }
     }
 
     fn validate2(&self) -> bool {
-        self.validate1() && self.0.iter().all(|v| v.validate2())
+        self.validate1() && self.iter().all(|v| v.validate2())
     }
 }
 
