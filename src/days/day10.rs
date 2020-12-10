@@ -24,7 +24,7 @@ impl DayTrait<Input, Output> for Day {
 
     fn part2(&self, mut input: Vec<Input>) -> Output {
         input.sort();
-        let len = *input.iter().max().unwrap() as usize + 3;
+        let len = input[input.len()-1] as usize + 3;
         let mut ways = vec![0u64; len];
         
         ways[len-1] = 1;
