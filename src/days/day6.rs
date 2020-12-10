@@ -38,7 +38,7 @@ impl DayTrait<Input, Output> for Day {
     }
 
     fn part2(&self, input: Vec<Input>) -> Output {
-        input
+        /*input
             .into_iter()
             .map(|x| {
                 let mut iter = x.0
@@ -50,7 +50,12 @@ impl DayTrait<Input, Output> for Day {
                     .unwrap()
                     .len()
             })
-            .sum()
+            .sum()*/
+            input.into_iter().map(|x| {
+                let mut arr = [0usize; 26];
+                x.iter().for_each(|v| v.iter().for_each(|&c| arr[c as usize-'a' as usize]+= 1));
+                arr.iter().filter(|&p| *p==x.len()).count()
+            }).sum()
     }
 
     fn part1_answer(&self) -> Output {

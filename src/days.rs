@@ -62,9 +62,10 @@ where
     }
     fn run_day(&self) -> (f64, f64) {
         println!("Day {}:", self.get_num());
-        let input = self.read_input().unwrap();
+        let input2 = self.read_input().unwrap();
+        let input1 = input2.clone();
         let b1 = Instant::now();
-        let p1 = self.part1(input.clone());
+        let p1 = self.part1(input1);
         let b2 = Instant::now();
         println!(
             "Part1: {}\nTook {}ms",
@@ -74,7 +75,7 @@ where
         let part1_time = (b2 - b1).as_nanos() as f64 / 1e6;
 
         let b1 = Instant::now();
-        let p1 = self.part2(input);
+        let p1 = self.part2(input2);
         let b2 = Instant::now();
         println!(
             "Part2: {}\nTook {}ms\n",
