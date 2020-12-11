@@ -6,14 +6,6 @@ use std::{
 };
 
 pub mod day1;
-pub mod day2;
-pub mod day3;
-pub mod day4;
-pub mod day5;
-pub mod day6;
-pub mod day7;
-pub mod day8;
-pub mod day9;
 pub mod day10;
 pub mod day11;
 pub mod day12;
@@ -24,12 +16,20 @@ pub mod day16;
 pub mod day17;
 pub mod day18;
 pub mod day19;
+pub mod day2;
 pub mod day20;
 pub mod day21;
 pub mod day22;
 pub mod day23;
 pub mod day24;
 pub mod day25;
+pub mod day3;
+pub mod day4;
+pub mod day5;
+pub mod day6;
+pub mod day7;
+pub mod day8;
+pub mod day9;
 
 #[macro_export]
 macro_rules! input_struct {
@@ -43,6 +43,17 @@ macro_rules! input_struct {
             }
         }
     };
+}
+
+#[macro_export]
+macro_rules! time {
+    ($b:expr) => {{
+        let s = std::time::Instant::now();
+        let res = $b;
+        let e = std::time::Instant::now();
+        println!("time: {}ms", (e - s).as_nanos() as f64 / 1e6);
+        res
+    }};
 }
 
 pub trait DayTrait<Input, Output>: Default
