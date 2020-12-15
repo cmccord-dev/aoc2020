@@ -2,7 +2,6 @@ use crate::ParsingError;
 use itertools::Itertools;
 use std::convert::Infallible;
 use std::str::FromStr;
-
 use crate::DayTrait;
 type Input = Schedule;
 type Output = i128;
@@ -56,7 +55,6 @@ fn pair(x: (i128, i128), y: (i128, i128)) -> i128 {
     }
     v
 }
-
 #[derive(Default)]
 pub struct Day {}
 impl DayTrait<Input, Output> for Day {
