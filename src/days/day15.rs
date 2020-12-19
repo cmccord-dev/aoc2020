@@ -76,7 +76,7 @@ impl DayTrait<Input, Output> for Day {
     }
 
     fn part2_answer(&self) -> Output {
-        0
+        16439
     }
 
     fn read_input(&self) -> Result<Vec<Input>, <Input as FromStr>::Err> {
