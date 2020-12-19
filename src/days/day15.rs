@@ -4,9 +4,30 @@ use std::str::FromStr;
 use std::{collections::HashMap, convert::Infallible};
 
 use crate::DayTrait;
-type Input = u64;
-type Output = u64;
+type Input = usize;
+type Output = usize;
 
+fn get_nth(input: Vec<Input>, n: usize) -> Output {
+    let mut cache: Vec<Output> = vec![0; n];
+    input
+        .iter()
+        .enumerate()
+        .for_each(|x| cache[*x.1] = x.0 as Output + 1);
+    let mut turn = input.len() + 1;
+    let mut last = 0;
+    while turn < n {
+        let next = if cache[last] == 0 {
+            0usize
+        } else {
+            turn - cache[last]
+        };
+        cache[last] = turn;
+        last = next;
+        turn += 1;
+    }
+
+    last
+}
 #[derive(Default)]
 pub struct Day {}
 impl DayTrait<Input, Output> for Day {
@@ -15,7 +36,8 @@ impl DayTrait<Input, Output> for Day {
     }
 
     fn part1(&self, input: Vec<Input>) -> Output {
-        let mut map: HashMap<u64, Vec<u64>> = input
+        get_nth(input, 2020)
+        /*let mut map: HashMap<u64, Vec<u64>> = input
             .iter()
             .enumerate()
             .map(|x| (*x.1, vec![x.0 as Input+1]))
@@ -39,12 +61,12 @@ impl DayTrait<Input, Output> for Day {
 
             //dbg!(&turn, &last);
         }
-        last
+        last*/
     }
 
     fn part2(&self, input: Vec<Input>) -> Output {
-        
-        let mut map: HashMap<u64, Vec<u64>> = input
+        get_nth(input, 30000000)
+        /*let mut map: HashMap<u64, Vec<u64>> = input
             .iter()
             .enumerate()
             .map(|x| (*x.1, vec![x.0 as Input+1]))
@@ -68,7 +90,8 @@ impl DayTrait<Input, Output> for Day {
 
             //dbg!(&turn, &last);
         }
-        last
+        last*/
+        
     }
 
     fn part1_answer(&self) -> Output {
