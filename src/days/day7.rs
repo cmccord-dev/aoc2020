@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 use crate::ParsingError;
 use itertools::Itertools;
-use std::convert::Infallible;
 use std::str::FromStr;
 
 use crate::DayTrait;

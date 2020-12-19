@@ -1,7 +1,7 @@
-use crate::{DayTrait, input_struct};
+use crate::{input_struct, DayTrait};
 use itertools::Itertools;
-use std::{ops::Deref, collections::HashMap};
-use std::{collections::HashSet, str::FromStr};
+use std::collections::HashMap;
+use std::str::FromStr;
 
 use crate::{parse_list_delim, CountValid, ParsingError, Validate};
 

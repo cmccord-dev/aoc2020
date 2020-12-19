@@ -1,6 +1,5 @@
 use std::convert::Infallible;
 use std::str::FromStr;
-use itertools::Itertools;
 
 use crate::DayTrait;
 

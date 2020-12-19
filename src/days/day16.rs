@@ -1,7 +1,7 @@
 use crate::ParsingError;
 use itertools::Itertools;
+use std::collections::HashSet;
 use std::{collections::HashMap, str::FromStr};
-use std::{collections::HashSet, convert::Infallible};
 
 use crate::DayTrait;
 type Input = InputData;

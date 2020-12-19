@@ -1,5 +1,4 @@
 use crate::ParsingError;
-use itertools::Itertools;
 use nalgebra::Vector2;
 use std::convert::Infallible;
 use std::str::FromStr;

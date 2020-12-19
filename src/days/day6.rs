@@ -1,9 +1,6 @@
 use crate::{input_struct, parse_list_delim};
 use itertools::Itertools;
-use std::collections::hash_set::Union;
-use std::collections::HashSet;
 use std::convert::Infallible;
-use std::iter::FromIterator;
 use std::str::FromStr;
 
 use crate::DayTrait;
@@ -38,19 +35,6 @@ impl DayTrait<Input, Output> for Day {
     }
 
     fn part2(&self, input: Vec<Input>) -> Output {
-        /*input
-            .into_iter()
-            .map(|x| {
-                let mut iter = x.0
-                    .into_iter()
-                    .map(|y| y.into_iter().collect::<HashSet<char>>());
-
-                iter.next()
-                    .map(|y| iter.fold(y, |a, b| a.intersection(&b).map(|x| *x).collect()))
-                    .unwrap()
-                    .len()
-            })
-            .sum()*/
             input.into_iter().map(|x| {
                 let mut arr = [0usize; 26];
                 x.iter().for_each(|v| v.iter().for_each(|&c| arr[c as usize-'a' as usize]+= 1));

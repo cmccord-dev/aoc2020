@@ -1,7 +1,3 @@
-use std::convert::Infallible;
-use crate::ParsingError;
-use std::str::FromStr;
-use itertools::Itertools;
 
 use crate::DayTrait;
 type Input = u64;
@@ -14,11 +10,11 @@ impl DayTrait<Input, Output> for Day {
         23
     }
 
-    fn part1(&self, input: Vec<Input>) -> Output {
+    fn part1(&self, _input: Vec<Input>) -> Output {
         0
     }
 
-    fn part2(&self, input: Vec<Input>) -> Output {
+    fn part2(&self, _input: Vec<Input>) -> Output {
         0
     }
 

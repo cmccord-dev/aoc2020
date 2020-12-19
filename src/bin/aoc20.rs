@@ -1,6 +1,4 @@
 use aoc20::days::*;
-use chrono;
-
 fn main() {
     day1::Day::new().run_day();
     day2::Day::new().run_day();

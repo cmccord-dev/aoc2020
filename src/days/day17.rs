@@ -1,14 +1,13 @@
 use crate::ParsingError;
 use itertools::Itertools;
 use nalgebra::Vector3;
-use nalgebra::Vector4;
-use std::{collections::HashMap, convert::Infallible};
+use std::collections::HashMap;
 use std::{collections::HashSet, str::FromStr};
 
 use crate::DayTrait;
 
 type Vec3 = Vector3<i64>;
-type Vec4 = Vector4<i64>;
+//type Vec4 = Vector4<i64>;
 
 #[derive(Debug, Clone)]
 pub struct Input(Vec<bool>);
@@ -33,7 +32,7 @@ fn get_neighbors(v: &Vec3) -> Vec<Vec3> {
         .collect_vec()
 }
 
-fn get_neighbors2(v: &Vec4) -> Vec<Vec4> {
+/*fn get_neighbors2(v: &Vec4) -> Vec<Vec4> {
     (-1..2)
         .map(|x| {
             (-1..2)
@@ -71,7 +70,7 @@ fn print_map(map: &HashMap<Vec3, bool>) {
             println!("");
         }
     }
-}
+}*/
 #[derive(Default)]
 pub struct Day {}
 impl DayTrait<Input, Output> for Day {
@@ -113,7 +112,7 @@ impl DayTrait<Input, Output> for Day {
     }
 
     fn part2(&self, input: Vec<Input>) -> Output {
-        let amount = 6 * 2+3;
+        let amount = 6 * 2 + 3;
         let ydim = input.len() + amount;
         let xdim = input[0].0.len() + amount;
         let zdim = amount;

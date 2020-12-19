@@ -1,6 +1,5 @@
 use crate::ParsingError;
 use itertools::Itertools;
-use std::convert::Infallible;
 use std::str::FromStr;
 
 use crate::DayTrait;
@@ -74,8 +73,8 @@ fn eval2(input: &Vec<Token>) -> i64 {
             },
             Token::Operator(op) => match ops.last() {
                 None => ops.push(prec(*op)),
-                Some(('(',_)) => ops.push(prec(*op)),
-                Some(_) =>  {
+                Some(('(', _)) => ops.push(prec(*op)),
+                Some(_) => {
                     let p = prec(*op).1;
                     //dbg!(&p, &ops, &vals);
                     while ops.len() > 0 && ops.last().unwrap().1 >= p {
@@ -89,7 +88,7 @@ fn eval2(input: &Vec<Token>) -> i64 {
                         });
                     }
                     ops.push(prec(*op))
-                },
+                }
             },
         }
     });
@@ -187,7 +186,6 @@ impl DayTrait<Input, Output> for Day {
     }
 
     fn part2(&self, input: Vec<Input>) -> Output {
-        
         input.iter().map(|x| eval2(&x.0)).sum()
     }
 

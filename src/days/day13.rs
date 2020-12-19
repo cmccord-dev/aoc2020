@@ -1,6 +1,5 @@
 use crate::ParsingError;
 use itertools::Itertools;
-use std::convert::Infallible;
 use std::str::FromStr;
 use crate::DayTrait;
 type Input = Schedule;
@@ -100,26 +99,6 @@ impl DayTrait<Input, Output> for Day {
             })
             .unwrap()
             .0
-        /*let a = bez_pair(input[0].1, input[1].1);
-        dbg!(&a);
-        let t = vec![(0, 3), (3, 4), (4, 5)];
-        let a = (pair(t[0], t[1]), t[0].1 * t[1].1);
-        dbg!(pair(a, t[2]));
-        0*/
-        /*let max = input.iter().max_by_key(|&x| x.1).unwrap();
-        (1i128..)
-            .find(|n| {
-                let start = n * max.1 - max.0;
-                /*if start == 3417 {
-                    dbg!(&start);
-                    dbg!(&input);
-                    dbg!(&input.iter().map(|x| start % x.1).collect_vec());
-                }*/
-                input.iter().all(|x| (start + x.0) % x.1 == 0)
-            })
-            .unwrap()
-            * max.1
-            - max.0*/
     }
 
     fn part1_answer(&self) -> Output {
