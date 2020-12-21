@@ -39,7 +39,6 @@ fn bez_pair(a: i128, b: i128) -> (i128, i128) {
         s = (s.1, s.0 - q * s.1);
         t = (t.1, t.0 - q * t.1);
     }
-    //dbg!(&r, &s, &t);
     (s.0, t.0)
 }
 
@@ -94,7 +93,6 @@ impl DayTrait<Input, Output> for Day {
             .map(|x| (x.0 as i128, x.1.unwrap()))
             .map(|x| (x.1 - x.0, x.1))
             .fold1(|a, b| {
-                dbg!(&a, &b);
                 (pair(a, b), a.1 * b.1)
             })
             .unwrap()

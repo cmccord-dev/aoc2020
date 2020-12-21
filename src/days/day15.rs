@@ -6,20 +6,20 @@ type Input = usize;
 type Output = usize;
 
 fn get_nth(input: Vec<Input>, n: usize) -> Output {
-    let mut cache: Vec<Output> = vec![0; n];
+    let mut cache: Vec<u32> = vec![0; n];
     input
         .iter()
         .enumerate()
-        .for_each(|x| cache[*x.1] = x.0 as Output + 1);
+        .for_each(|x| cache[*x.1] = x.0 as u32 + 1);
     let mut turn = input.len() + 1;
-    let mut last = 0;
-    while turn < n {
+    let mut last = 0usize;
+    while turn < n  {
         let next = if cache[last] == 0 {
             0usize
         } else {
-            turn - cache[last]
+            turn - cache[last] as usize
         };
-        cache[last] = turn;
+        cache[last] = turn as u32;
         last = next;
         turn += 1;
     }

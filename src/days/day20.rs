@@ -144,14 +144,17 @@ impl DayTrait<Input, Output> for Day {
                 x.side_a
                     .iter()
                     .chain(x.side_b.iter())
-                    .map(|x| *x)
+                    .map(|v| (*v, x.id))
                     .collect_vec()
             })
             .flatten()
             .collect_vec();
         let mut side_map: HashMap<u32, usize> = HashMap::new();
-        all.iter()
-            .for_each(|x| *side_map.entry(*x).or_insert(0) += 1);
+        let mut side_map2: HashMap<u32, Vec<usize>> = HashMap::new();
+        all.iter().for_each(|x| {
+            *side_map.entry(x.0).or_insert(0) += 1;
+            side_map2.entry(x.0).or_insert_with(|| Vec::new()).push(x.1);
+        });
         let corners = tiles
             .values()
             .filter(|x| (x.side_a.iter().filter(|s| side_map[s] == 1).count()) == 2)
@@ -182,13 +185,11 @@ impl DayTrait<Input, Output> for Day {
                 let left = image.get(&loc).map(|x| x.side_a[(left_ind + 2) % 4]);
                 let next = match (&left, &up) {
                     (Some(left), Some(up)) => {
-                        let next_id = tiles
-                            .values()
-                            .find(|x| {
-                                x.side_a.iter().chain(x.side_b.iter()).any(|y| y == left)
-                            })
-                            .unwrap()
-                            .id;
+                        let next_id = side_map2[left]
+                            .iter()
+                            .filter(|&x| image.get(&loc).unwrap().id != *x)
+                            .next()
+                            .unwrap();
                         let mut next = tiles.remove(&next_id).unwrap();
                         while &next.side_a[left_ind] != left && &next.side_b[left_ind] != left {
                             next.rotate()
@@ -204,13 +205,12 @@ impl DayTrait<Input, Output> for Day {
                         next
                     }
                     (Some(left), None) => {
-                        let next_id = tiles
-                            .values()
-                            .find(|x| x.side_a.iter().chain(x.side_b.iter()).any(|y| y == left))
-                            .unwrap()
-                            .id;
+                        let next_id = side_map2[left]
+                            .iter()
+                            .filter(|&x| image.get(&loc).unwrap().id != *x)
+                            .next()
+                            .unwrap();
                         let mut next = tiles.remove(&next_id).unwrap();
-                        //dbg!(&next);
                         if next.side_b.iter().any(|x| x == left) {
                             next.flip_h();
                             next.flip_v();
@@ -229,13 +229,8 @@ impl DayTrait<Input, Output> for Day {
                         next
                     }
                     (None, Some(up)) => {
-                        let next_id = tiles
-                            .values()
-                            .find(|x| x.side_a.iter().chain(x.side_b.iter()).any(|y| y == up))
-                            .unwrap()
-                            .id;
+                        let next_id = side_map2[up].iter().filter(|&x| image.get(&above).unwrap().id!=*x).next().unwrap();
                         let mut next = tiles.remove(&next_id).unwrap();
-                        //dbg!(&next);
                         if next.side_b.iter().any(|x| x == up) {
                             next.flip_h();
                             next.flip_v();
