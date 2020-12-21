@@ -194,6 +194,6 @@ impl DayTrait<Input, Output> for Day {
     }
 
     fn part2_answer(&self) -> Output {
-        0
+        112899558798666
     }
 }
